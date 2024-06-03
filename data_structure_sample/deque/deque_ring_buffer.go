@@ -1,8 +1,11 @@
-package main
+/*
+リングバッファ(循環バッファ)を使ったDeque(両端キュー)の実装
 
-/**
-リングバッファ(循環バッファ)を使ったDequeの実装
-**/
+* O(1)で先頭/末尾への追加, 削除
+* リングバッファを使っているため, メモリの再確保が発生しない
+* 途中への挿入はO(n)のため、基本的に行わない
+*/
+package main
 
 import "fmt"
 
@@ -95,6 +98,15 @@ func (d *DequeRing) Back() (int, error) {
 	return d.elements[(d.rear-1+d.capacity)%d.capacity], nil
 }
 
+// At ランダムアクセス
+func (d *DequeRing) At(index int) (int, error) {
+	if index < 0 || index >= d.cnt {
+		return 0, fmt.Errorf("index out of range")
+	}
+	actualIndex := (d.front + index) % d.capacity
+	return d.elements[actualIndex], nil
+}
+
 func main() {
 	deq := NewDequeRing(5)
 
@@ -103,9 +115,10 @@ func main() {
 	_ = deq.PushFront(0)
 	_ = deq.PushFront(8)
 	fmt.Println("Deque:", deq.elements)
-	fmt.Println("  front:", deq.front)
-	fmt.Println("  rear:", deq.rear)
-	fmt.Println("  count:", deq.cnt)
+	for i := 0; i < deq.cnt; i++ {
+		x, _ := deq.At(i)
+		fmt.Println("At:", x)
+	}
 
 	front, _ := deq.Front()
 	fmt.Println("Front element:", front)
@@ -115,10 +128,14 @@ func main() {
 
 	x, _ := deq.PopFront()
 	fmt.Println("Deque PopFront:", x)
-	fmt.Println("Deque after PopFront:", deq.elements)
+	fmt.Println("Deque after PopFront:", deq.elements, " front:", deq.front, " rear:", deq.rear)
 
 	x, _ = deq.PopBack()
 	fmt.Println("Deque PopBack:", x)
-	fmt.Println("Deque after PopBack:", deq.elements)
+	fmt.Println("Deque after PopFront:", deq.elements, " front:", deq.front, " rear:", deq.rear)
 
+	for i := 0; i < deq.cnt; i++ {
+		x, _ = deq.At(i)
+		fmt.Println("At:", x)
+	}
 }
