@@ -1,0 +1,3 @@
+EmptyOkResponse:
+  description: No content
+  content: {}

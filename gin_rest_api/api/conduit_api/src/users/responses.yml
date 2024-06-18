@@ -1,0 +1,12 @@
+responses:
+  UserResponse:
+    description: User
+    content:
+      application/json:
+        schema:
+          required:
+            - user
+          type: object
+          properties:
+            user:
+              $ref: 'schemas.yml#/schemas/User'

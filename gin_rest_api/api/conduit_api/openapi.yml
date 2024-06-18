@@ -1,0 +1,10 @@
+openapi: 3.0.3
+info:
+  title: Conduit API
+  version: 1.0.0
+  description: Conduit API
+tags:
+  - name: User and Authentication
+paths:
+  /users/login:
+    $ref: './src/users/path_users_login.yml'

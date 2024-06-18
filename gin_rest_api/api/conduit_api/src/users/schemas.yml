@@ -1,0 +1,31 @@
+schemas:
+  LoginUser:
+    required:
+      - email
+      - password
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+        format: password
+  User:
+    required:
+      - bio
+      - email
+      - image
+      - token
+      - username
+    type: object
+    properties:
+      email:
+        type: string
+      token:
+        type: string
+      username:
+        type: string
+      bio:
+        type: string
+      image:
+        type: string

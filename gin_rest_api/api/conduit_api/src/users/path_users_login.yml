@@ -1,0 +1,25 @@
+post:
+  tags:
+    - User and Authentication
+  summary: Existing user login
+  description: Login for existing user
+  operationId: Login
+  requestBody:
+    description: Credentials to use
+    content:
+      application/json:
+        schema:
+          required:
+            - user
+          type: object
+          properties:
+            user:
+              $ref: 'schemas.yml#/schemas/LoginUser'
+  responses:
+    '200':
+      $ref: 'responses.yml#/responses/UserResponse'
+    '401':
+      $ref: '../common/unauthorized.yml'
+    '422':
+      $ref: '../common/error.yml#/GenericError'
+  x-codegen-request-body-name: body
